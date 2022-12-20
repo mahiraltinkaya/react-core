@@ -2,43 +2,53 @@ import axios from "axios";
 
 // eslint-disable-next-line
 import { dispatch } from "@store";
-import storage from "@storage";
+import { openSnackbar } from "@store/slices/todoSlices";
 // ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:3000",
 });
 
-export const session = (accessToken) => {
-  localStorage.setItem("accessToken", accessToken);
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-};
+export const session = (accessToken) => {};
 
-export const clearSession = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("X-socket-id");
-  delete axiosInstance.defaults.headers.common.Authorization;
-};
+export const clearSession = () => {};
 
-axiosInstance.interceptors.request.use((config) => {
-  config.headers.common["X-lang-set"] = storage.get("i18nextLng") || "en";
-  config.headers.common["X-socket-id"] = storage.get("X-socket-id");
-  config.headers.common.Authorization = `Bearer ${storage.get("accessToken")}`;
-  return config;
-});
+axiosInstance.interceptors.request.use((config) => config);
 
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.isAxiosError && error.response.status === 401) {
+      dispatch(
+        openSnackbar({
+          snackbar: true,
+          severity: "error",
+          content: "Unauthorized.",
+        })
+      );
+
       return;
     }
     if (error.isAxiosError && error.response.status === 406) {
+      dispatch(
+        openSnackbar({
+          snackbar: true,
+          severity: "error",
+          content: "It's not accessible.",
+        })
+      );
     }
 
     if (error.isAxiosError && error.response.status === 404) {
+      dispatch(
+        openSnackbar({
+          snackbar: true,
+          severity: "error",
+          content: "Page Not Found",
+        })
+      );
     }
   }
 );
 
-export default axiosInstance;
+export { axiosInstance };

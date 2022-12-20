@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import App from "./App";
+import Dashboard from "./index";
 
 test("Any text is not a render in the page", () => {
-  render(<App />);
+  render(<Dashboard />);
   expect(null).not.toBeInTheDocument();
 });

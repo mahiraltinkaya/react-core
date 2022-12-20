@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -7,7 +7,6 @@ import {
   MenuItem,
   Iconify,
   Typography,
-  Button,
   LoadingButton,
 } from "@components";
 import { priorities } from "assets/constants";
@@ -15,25 +14,28 @@ import { useForm, Controller } from "react-hook-form";
 
 import useAlphaNumeric from "hooks/useAlphaNumeric";
 
-function CreateJob() {
+import { useDispatch } from "@store";
+import { addJob } from "@store/slices/todoSlices";
+
+function CreateJob({ todoList }) {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const isAlphaNumeric = useAlphaNumeric();
-  const [content, setContent] = useState("");
-  const [priority, setPriority] = useState("");
 
   const validationSchema = Yup.object({
-    content: Yup.string().required("Job field is required."),
+    title: Yup.string().required("Job field is required."),
     priority: Yup.string().required("Priority field is required."),
   }).required();
 
   const { control, handleSubmit, reset } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      content: "",
+      title: "",
       priority: "",
     },
   });
   const onSubmit = (val) => {
-    console.log(val);
+    dispatch(addJob(val));
     reset();
   };
   const onErrors = (val) => {
@@ -44,7 +46,7 @@ function CreateJob() {
     <form onSubmit={handleSubmit(onSubmit, onErrors)}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="body-1" sx={{ fontWeight: 800 }}>
+          <Typography variant="body1" sx={{ fontWeight: 800 }}>
             Create New Job
           </Typography>
         </Grid>
@@ -56,7 +58,7 @@ function CreateJob() {
           sx={{ display: "flex", flexDirection: "row", alignItems: "start" }}
         >
           <Controller
-            name="content"
+            name="title"
             control={control}
             render={({ field, fieldState: { error } }) => (
               <TextField
@@ -113,8 +115,9 @@ function CreateJob() {
           <LoadingButton
             type={"submit"}
             sx={{ px: 4, mx: 2 }}
-            loading={false}
+            loading={loading}
             loadingPosition="start"
+            disabled={loading}
             color="primary"
             startIcon={
               <Iconify

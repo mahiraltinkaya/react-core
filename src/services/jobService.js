@@ -1,24 +1,26 @@
-import axios from "@axios";
+import { axiosInstance } from "@axios";
 import { dispatch } from "@store";
 import { openSnackbar } from "@store/slices/todoSlices";
 class JobService {
-  get() {
-    return new Promise((resolve, reject) =>
-      axios
-        .get("/")
-        .then((response) => response.data)
-        .catch((err) => {
-          console.log(err);
-          dispatch(
-            openSnackbar({
-              snackbar: true,
-              content: err.message,
-              severity: "error",
-            })
-          );
-        })
+  getJobList() {
+    return new Promise(
+      async (resolve, reject) =>
+        await axiosInstance
+          .get("/")
+          .then((response) => {
+            resolve(response?.data);
+          })
+          .catch((err) => {
+            dispatch(
+              openSnackbar({
+                snackbar: true,
+                content: err.message,
+                severity: "error",
+              })
+            );
+            reject(err);
+          })
     );
   }
 }
-
 export default new JobService();

@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   isOpen: false,
   snackbar: false,
-  todos: [],
+  todoList: [],
   severity: "success",
   content: "",
 };
@@ -15,29 +15,45 @@ export const counterSlice = createSlice({
     loader: (state) => {
       state.isOpen = !state.isOpen;
     },
-    openSnackbar(state, action) {
-      state.snackbar = action.payload.snackbar;
-      state.severity = action.payload.severity;
-      state.content = action.payload.content;
+    openSnackbar(state, { payload }) {
+      state.snackbar = payload.snackbar;
+      state.severity = payload.severity;
+      state.content = payload.content;
     },
-    addJob(state, action) {
-      state.todos.push(action.paylaod);
+    setJobsFromServer(state, { payload }) {
+      state.todoList = payload;
     },
-    deleteJob(state, action) {
-      state.todos.splice(action.payload, 1);
+    addJob(state, { payload }) {
+      state.todoList.push(payload);
     },
-    updateJob(state, action) {
-      state.todos = state.todos.map((item) => {
-        if (item.title === action.payload.title) {
-          item.priority = action.payload.priority;
+    deleteJob(state, { payload }) {
+      state.todoList = [...state.todoList].filter(
+        (item) => item.title !== payload.title
+      );
+    },
+    updateJob(state, { payload }) {
+      state.todoList.map((item) => {
+        if (item.title === payload.title) {
+          item.priority = payload.priority;
         }
         return item;
       });
     },
+
+    closeSnackbar(state) {
+      state.snackbar = false;
+    },
   },
 });
 
-export const { loader, openSnackbar, addJob, deleteJob, updateJob } =
-  counterSlice.actions;
+export const {
+  loader,
+  openSnackbar,
+  addJob,
+  deleteJob,
+  updateJob,
+  closeSnackbar,
+  setJobsFromServer,
+} = counterSlice.actions;
 
 export default counterSlice.reducer;

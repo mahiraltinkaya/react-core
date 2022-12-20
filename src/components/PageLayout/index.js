@@ -10,7 +10,8 @@ import {
 } from "@components";
 import Header from "components/header";
 import Footer from "components/footer/footer";
-import { useSelector } from "@store";
+import { dispatch, useSelector } from "@store";
+import { closeSnackbar } from "@store/slices/todoSlices";
 
 function PageLayout({ children, title, open = false, handleClose }) {
   const { snackbar, severity, content } = useSelector((state) => state.todos);
@@ -22,8 +23,8 @@ function PageLayout({ children, title, open = false, handleClose }) {
       </Helmet>
       <Snackbar
         open={snackbar}
-        autoHideDuration={6000}
-        onClose={handleClose}
+        autoHideDuration={5000}
+        onClose={() => dispatch(closeSnackbar())}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
@@ -40,7 +41,7 @@ function PageLayout({ children, title, open = false, handleClose }) {
         </Backdrop>
         <Header></Header>
         <Divider />
-        <Container maxWidth={"xl"} sx={{ pt: 6 }}>
+        <Container maxWidth={"xl"} sx={{ pt: 2, pb: 8 }}>
           {children}
         </Container>
         <Footer />

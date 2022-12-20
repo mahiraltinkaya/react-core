@@ -1,4 +1,14 @@
 import {
+  TableSortLabel,
+  Card,
+  CardActions,
+  CardContent,
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
   Button,
   TextField,
   Icon,
@@ -20,6 +30,10 @@ import {
   BottomNavigation,
   Snackbar,
   Alert,
+  DialogContent,
+  DialogTitle,
+  DialogActions,
+  DialogContentText,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {
@@ -68,6 +82,15 @@ export const colors = {
 };
 
 export {
+  Card,
+  CardActions,
+  CardContent,
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
   Snackbar,
   BottomNavigation,
   LoadingButton,
@@ -76,6 +99,8 @@ export {
   Grid,
   CircularProgress,
   Backdrop,
+};
+export {
   Dialog,
   Divider,
   IconButton,
@@ -89,8 +114,15 @@ export {
   CssBaseline,
   Helmet,
   Box,
+};
+export {
   Container,
   Iconify,
   Link,
   Alert,
+  DialogContent,
+  DialogTitle,
+  DialogActions,
+  DialogContentText,
+  TableSortLabel,
 };

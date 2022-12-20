@@ -27,4 +27,9 @@ export const styles = {
     justifyContent: "center",
     alignItems: "center",
   },
+  spaceBetween: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 };

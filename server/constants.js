@@ -1,22 +1,24 @@
-export const jobList = [
+const jobList = [
   {
-    content: "Assessment çalışması hazırlanmalı.",
+    title: "Assessment çalışması hazırlanmalı.",
     priority: "urgent",
   },
   {
-    content: "Git hesabı oluşturulup git e bağlanmalı.",
-    priority: "urgent",
-  },
-  {
-    content: "Readme file hazırlanmalı.",
+    title: "Readme file hazırlanmalı.",
     priority: "regular",
   },
   {
-    content: "Uygulama detayları paylaşılmalı.",
+    title: "Uygulama detayları paylaşılmalı.",
     priority: "trivial",
   },
   {
-    content: "Development süreçleri aktarılmalı.",
+    title: "Development süreçleri aktarılmalı.",
     priority: "trivial",
   },
+  {
+    title: "Git hesabı oluşturulup git e bağlanmalı.",
+    priority: "urgent",
+  },
 ];
+
+module.exports = jobList;
