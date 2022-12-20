@@ -14,7 +14,7 @@ function Footer() {
           alignItems: "center",
           justifyContent: "space-between",
           height: 50,
-          px: 8,
+          px: 4,
         }}
       >
         <Box>

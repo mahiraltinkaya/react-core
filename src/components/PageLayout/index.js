@@ -41,7 +41,7 @@ function PageLayout({ children, title, open = false, handleClose }) {
         </Backdrop>
         <Header></Header>
         <Divider />
-        <Container maxWidth={"xl"} sx={{ pt: 2, pb: 8 }}>
+        <Container maxWidth={"xl"} sx={{ pt: 2, pb: 8, px: 2 }}>
           {children}
         </Container>
         <Footer />

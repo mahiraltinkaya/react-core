@@ -107,7 +107,7 @@ function ListJobs({ todoList = [] }) {
 
   return (
     <Grid container sx={{ flexGrow: 1, mt: 2 }} spacing={3}>
-      <Grid item xs={12} sx={styles.centerize}>
+      <Grid item xs={12} sx={{ ...styles.centerize }}>
         <Typography variant="body1" sx={{ fontWeight: 800 }}>
           Job List
         </Typography>
@@ -117,7 +117,7 @@ function ListJobs({ todoList = [] }) {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Toolbar sx={{ backgroundColor: "#e4eafc" }}>
+        <Toolbar sx={{ backgroundColor: "#e4eafc", pt: 2 }}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={7} md={8}>
               <TextField

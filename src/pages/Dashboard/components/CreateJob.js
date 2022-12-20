@@ -23,7 +23,9 @@ function CreateJob({ todoList }) {
   const isAlphaNumeric = useAlphaNumeric();
 
   const validationSchema = Yup.object({
-    title: Yup.string().required("Job field is required."),
+    title: Yup.string()
+      .required("Job field is required.")
+      .max(255, "Job must be 255 characters maximum"),
     priority: Yup.string().required("Priority field is required."),
   }).required();
 
