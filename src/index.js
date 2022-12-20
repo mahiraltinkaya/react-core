@@ -4,8 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { store, persistor } from "./store";
-import { Provider } from "react-redux";
+import { Provider as ReduxProvider } from "@store";
 import { HelmetProvider } from "react-helmet-async";
 
 import { ThemeProvider, theme, StyledEngineProvider } from "./util/@theme";
@@ -16,7 +15,11 @@ import { BrowserTracing } from "@sentry/tracing";
 
 import { SocketContext, socket } from "contexts/SocketContext";
 
+import { persistor, store } from "@store";
 import { PersistGate } from "redux-persist/integration/react";
+
+import { RouterProvider } from "react-router-dom";
+import routes from "@routes";
 
 import "@i18n";
 
@@ -33,23 +36,25 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <StyledEngineProvider>
-        <ThemeProvider theme={theme}>
-          <SocketContext.Provider
-            value={{
-              socket,
-              socketId: socket.id,
-            }}
-          >
-            <CssBaseline />
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-                <App />
-              </PersistGate>
-            </Provider>
-          </SocketContext.Provider>
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <ReduxProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <StyledEngineProvider>
+            <ThemeProvider theme={theme}>
+              <SocketContext.Provider
+                value={{
+                  socket,
+                  socketId: socket.id,
+                }}
+              >
+                <RouterProvider router={routes}>
+                  <CssBaseline />
+                  <App />
+                </RouterProvider>
+              </SocketContext.Provider>
+            </ThemeProvider>
+          </StyledEngineProvider>
+        </PersistGate>
+      </ReduxProvider>
     </HelmetProvider>
   </React.StrictMode>
 );

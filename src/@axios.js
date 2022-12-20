@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // eslint-disable-next-line
-import { dispatch } from "redux/store";
+import { dispatch } from "@store";
 import storage from "@storage";
 // ----------------------------------------------------------------------
 

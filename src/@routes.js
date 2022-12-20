@@ -16,13 +16,19 @@ const Loadable = (Component) => (props) => {
   );
 };
 
+const App = Loadable(lazy(() => import("./App")));
 const Dashboard = Loadable(lazy(() => import("./pages/Dashboard")));
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />,
+    element: <App />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Dashboard />,
+      },
+    ],
   },
 ]);
 

@@ -1,19 +1,23 @@
 import axios from "@axios";
-import { dispatch } from "store";
-import { openSnackbar } from "store/slices/todoSlices";
+import { dispatch } from "@store";
+import { openSnackbar } from "@store/slices/todoSlices";
 class JobService {
   get() {
-    return new Promise((resolve, reject) => {
-      return axios
+    return new Promise((resolve, reject) =>
+      axios
         .get("/")
-        .then((response) => {
-          return response.data;
-        })
+        .then((response) => response.data)
         .catch((err) => {
           console.log(err);
-          dispatch(openSnackbar(true));
-        });
-    });
+          dispatch(
+            openSnackbar({
+              snackbar: true,
+              content: err.message,
+              severity: "error",
+            })
+          );
+        })
+    );
   }
 }
 
