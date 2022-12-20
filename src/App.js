@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./assets/main.scss";
+
+import { RouterProvider } from "react-router-dom";
+import routes from "./@routes";
+import { useSelector, useDispatch } from "react-redux";
+import { Snackbar, Alert } from "@components";
 
 function App() {
+  const { snackbar, severity, content } = useSelector((state) => state.todos);
+
+  const handleClose = () => {};
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <RouterProvider router={routes}>
+        <Snackbar open={snackbar} autoHideDuration={4000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {content}
+          </Alert>
+        </Snackbar>
+      </RouterProvider>
+    </>
   );
 }
 
