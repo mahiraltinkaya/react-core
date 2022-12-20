@@ -14,10 +14,10 @@ import { useForm, Controller } from "react-hook-form";
 
 import useAlphaNumeric from "hooks/useAlphaNumeric";
 
-import { useDispatch } from "@store";
+import { useDispatch } from "react-redux";
 import { addJob } from "@store/slices/todoSlices";
 
-function CreateJob({ todoList }) {
+function CreateJob() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const isAlphaNumeric = useAlphaNumeric();
@@ -37,8 +37,13 @@ function CreateJob({ todoList }) {
     },
   });
   const onSubmit = (val) => {
+    setLoading(true);
     dispatch(addJob(val));
     reset();
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
   const onErrors = (val) => {
     console.log(val);
@@ -48,7 +53,11 @@ function CreateJob({ todoList }) {
     <form onSubmit={handleSubmit(onSubmit, onErrors)}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="body1" sx={{ fontWeight: 800 }}>
+          <Typography
+            variant="body1"
+            sx={{ fontWeight: 800 }}
+            test-id="create-job-title"
+          >
             Create New Job
           </Typography>
         </Grid>

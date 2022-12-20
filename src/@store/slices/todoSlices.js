@@ -25,11 +25,18 @@ export const counterSlice = createSlice({
     },
     addJob(state, { payload }) {
       state.todoList.push(payload);
+      state.snackbar = true;
+      state.severity = "success";
+      state.content = "Job added to list successfully ";
     },
     deleteJob(state, { payload }) {
       state.todoList = [...state.todoList].filter(
         (item) => item.title !== payload.title
       );
+
+      state.snackbar = true;
+      state.severity = "warning";
+      state.content = "Job delete from list. ";
     },
     updateJob(state, { payload }) {
       state.todoList.map((item) => {
@@ -38,6 +45,10 @@ export const counterSlice = createSlice({
         }
         return item;
       });
+
+      state.snackbar = true;
+      state.severity = "warning";
+      state.content = "The job priority updated successfuly.";
     },
 
     closeSnackbar(state) {

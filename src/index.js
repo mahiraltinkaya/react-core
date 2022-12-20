@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { Provider as ReduxProvider } from "@store";
+import { Provider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
 
 import { ThemeProvider, theme, StyledEngineProvider } from "./util/@theme";
@@ -33,10 +33,14 @@ if (process.env.NODE_ENV === "production") {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+const ReduxProvider = ({ children, reduxStore }) => (
+  <Provider store={store}>{children}</Provider>
+);
+
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <ReduxProvider store={store}>
+      <ReduxProvider>
         <PersistGate loading={null} persistor={persistor}>
           <StyledEngineProvider>
             <ThemeProvider theme={theme}>

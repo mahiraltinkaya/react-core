@@ -28,7 +28,7 @@ import { priorities, styles } from "assets/constants";
 import useCheckPriority from "hooks/useCheckPriority";
 
 import { updateJob, deleteJob } from "@store/slices/todoSlices";
-import { useDispatch } from "@store";
+import { useDispatch } from "react-redux";
 
 function ListJobs({ todoList = [] }) {
   const dispatch = useDispatch();
@@ -174,7 +174,7 @@ function ListJobs({ todoList = [] }) {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#e4eafc" }}>
-                <TableCell>
+                <TableCell sx={{ width: "100%" }}>
                   <Typography variant={"body2"} sx={{ fontWeight: 800 }}>
                     Name
                   </Typography>
@@ -186,13 +186,19 @@ function ListJobs({ todoList = [] }) {
                       setSort(!sort);
                     }}
                   >
-                    <Typography variant={"body2"} sx={{ fontWeight: 800 }}>
+                    <Typography
+                      variant={"body2"}
+                      sx={{ fontWeight: 800, width: 100 }}
+                    >
                       Priority
                     </Typography>
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography variant={"body2"} sx={{ fontWeight: 800 }}>
+                  <Typography
+                    variant={"body2"}
+                    sx={{ fontWeight: 800, width: 100 }}
+                  >
                     Actions
                   </Typography>
                 </TableCell>

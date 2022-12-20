@@ -10,11 +10,17 @@ import {
 } from "@components";
 import Header from "components/header";
 import Footer from "components/footer/footer";
-import { dispatch, useSelector } from "@store";
+import { useDispatch, useSelector } from "react-redux";
 import { closeSnackbar } from "@store/slices/todoSlices";
+import { useEffect } from "react";
 
 function PageLayout({ children, title, open = false, handleClose }) {
+  const dispatch = useDispatch();
   const { snackbar, severity, content } = useSelector((state) => state.todos);
+
+  useEffect(() => {
+    dispatch(closeSnackbar());
+  }, []);
 
   return (
     <>
@@ -23,7 +29,7 @@ function PageLayout({ children, title, open = false, handleClose }) {
       </Helmet>
       <Snackbar
         open={snackbar}
-        autoHideDuration={5000}
+        autoHideDuration={3000}
         onClose={() => dispatch(closeSnackbar())}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
