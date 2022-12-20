@@ -27,9 +27,9 @@ function HeaderComponent() {
             </svg>
           </Link>
           <Box sx={{ flexGrow: 1 }}></Box>
-          <Button color="warning" variant="outlined">
+          {/* <Button color="warning" variant="outlined">
             Notes
-          </Button>
+          </Button> */}
         </Toolbar>
       </AppBar>
     </Container>
