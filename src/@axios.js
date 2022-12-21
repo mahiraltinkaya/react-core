@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // eslint-disable-next-line
-import { dispatch } from "@store";
+import { dispatch } from "react-redux";
 import { openSnackbar } from "@store/slices/todoSlices";
 // ----------------------------------------------------------------------
 
